@@ -3,20 +3,37 @@ import pkgEnum.*;
 public class Card implements Comparable {
 
 	//	TODO: Card has two attributes, eRank and eSuit, add these attributes
+	private int eRank;
+	private int eSuit;
 	
+	public Card(int erank, int suit) {
+
+		this.eRank = erank;
+		this.eSuit = suit;
+		}
 	
-	//	TODO: Build a constructor for Card passing in eRank and eSuit
+	public int geteRank() {
+
+		return this.eRank;
+		}
 	
+	public int geteSuit() {
+
+		return this.eSuit;
+		}
 	
-	//	TODO: Add a public 'getter' method for eRank and eSuit.  
-	//			Add a private 'setter' method for eRank and eSuit
+	private void seteRank(int eRank) {
+		this.eRank = eRank;
+		}
+	
+	private void seteSuit(int eSuit) {
+
+		this.eSuit = eSuit;
+		}
 	
 	@Override
 	public int compareTo(Object o) {
 		Card c = (Card) o;
-		return 0;
-		//return c.geteRank().compareTo(this.geteRank());
-
-}
-	
-}
+		return c.geteRank().compareTo(this.geteRank());
+		}
+	}
