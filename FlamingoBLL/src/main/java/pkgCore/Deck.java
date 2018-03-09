@@ -8,18 +8,24 @@ public class Deck {
 
 	private ArryList<Card> DeckCards = new ArrayList<Card>();
 	
-	public Deck() {
+	public Deck(int numOfDecks) throws Exception {
 		
-	for (eSuit eSuit: eSuit.values()) {
-		
-		for (eRank eRank: eRank.values()) {
+		if (numOfDecks < 1) {
 			
-			DeckCards.add(new Card(eRank, eSuit))
-		}
-	}
-	
-	Collections.shuffle(DeckCards);
-		
+			throw new Exception("Number of Decks < 1");
+			
+			for (int a = 0; a < numOfDecks; a++) {
+				
+				for (eSuit eSuit: eSuit.values()) {
+					
+					for (eRank eRank: eRank.values()) {
+					
+						DeckCards.add(new Card(eRank, eSuit))
+					}
+				}
+			}
+			
+			Collections.shuffle(DeckCards);
 	
 	for (Card c: DeckCards) {
 		System.out.print(c.geteSuit););
