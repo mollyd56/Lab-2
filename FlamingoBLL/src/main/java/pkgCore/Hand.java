@@ -13,39 +13,67 @@ public class Hand {
 		
 	}
 	
+	//this doesn't capture all possible scores... it only captures scores that we care about!
 	public int[] ScoreHand()
 	{
 		int [] iScore = new int[2];
 		
-		iScore[0] = 5;
-		iScore[1] = 10;
+		iScore[0] = 0;
+		iScore[1] = 0;
+		boolean bAce = false;
 		
 		Collections.sort(cards);
 		
-		
 		for (Card c: cards)
-		{
-			//	TODO: Determine the score.  
-			//			Cards:
-			//			2-3-4 - score = 11
-			//			5-J-Q - score = 25
-			//			5-6-7-2 - score = 20
-			//			J-Q	- score = 20
-			//			8-A = score = 9 or 19
-			//			4-A = score = 5 or 15
-		}
+		{	
+			iScore[0] += c.geteRank().getiCardValueMin();
+			if (c.geteRank() == eRank.ACE)
+				bAce = true;
+			}
+		iScore[1] = (bAce) ? iScore[0] + 10 : iScore[0];
 		
+		SetHandScore(iScore);
 		return iScore;
 	}
 	
-	public void Draw(Deck d)
-	{
-		//	TODO: add a card to 'cards' from a card drawn from Deck d
+	public void Draw(Deck d){
+		cards.add(d.draw());
 	}
 	
-	private void AddCard(Card c)
-	{
+	private void AddCard(Card c){
 		cards.add(c);
+	}
+	
+	public boolean bCanDealerHit() {
+		boolean bDraw = false;
+		
+		for (int iScore : ScoreHand()) {
+			if (iScore >= 17)
+				return false;
+		}
+		return true;	
+	}
+	
+	public boolean bCanPlayerDraw() {
+		for (int iScore: ScoreHand()) {
+			if (iScore < 21)
+				return true;
+		}
+		return false;
+		}
+	
+	public boolean isBlackJack() {
+		int[ ] iScores = ScoreHand();
+		if ((iScore[0] == 21) && (HandCards.size()== 2))
+			return true;
+		return false;
+	}
+	
+	public void setHandScore(int[ ] Scores) {
+		
+		this.iScore = Scores[0];
+		if (Scores[1] <= 21)
+			iScore = Scores[1];
 	}
 	
 }
